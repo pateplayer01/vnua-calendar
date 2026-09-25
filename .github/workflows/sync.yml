@@ -35,3 +35,13 @@ jobs:
           git add docs/schedule.ics docs/exams.ics
           git diff --cached --quiet && echo "No changes" || git commit -m "🔄 Update schedule $(date '+%Y-%m-%d')"
           git push
+
+  workflow-keepalive:
+    if: github.event_name == 'schedule'
+    runs-on: ubuntu-latest
+    permissions:
+      actions: write
+    steps:
+      - name: Keep scheduled workflow enabled
+        uses: pateplayer01/gh-workflow-keepalive@main
+
